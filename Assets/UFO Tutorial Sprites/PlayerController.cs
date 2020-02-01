@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rb2d;
     private int count;
+    private int playerLive;
     public Text countText;
     public Text winText;
+    public Text PlayerLivesText;
     
 
 
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         count = 0;
+        playerLive = 3;
         winText.text = "";
         SetCountText();
         
@@ -44,14 +47,32 @@ public class PlayerController : MonoBehaviour
             SetCountText();
 
         }
+        else if (other.gameObject.CompareTag("Enemy"))
+        {
+            other.gameObject.SetActive(false);
+            count = count - 1;
+            playerLive = playerLive - 1;
+            SetCountText();
+        }
+        if (count == 12) 
+{
+    transform.position = new Vector2(100.0f, 0.0f); 
+}
     }
     void SetCountText()
 
     {
+        PlayerLivesText.text = "Player Lives :" + playerLive.ToString();
         countText.text = "count:" + count.ToString();
-        if (count >= 12)
+        if (count >= 20)
         {
             winText.text = "You win! Game created by HangZheng!";
+        }
+        else if(playerLive <=0)
+        {
+            Destroy(gameObject);
+            winText.text = "You Lose";
+
         }
     }
     }
