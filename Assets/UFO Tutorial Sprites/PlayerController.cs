@@ -31,8 +31,7 @@ public class PlayerController : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
         Vector2 Movement = new Vector2(moveHorizontal, moveVertical);
         rb2d.AddForce(Movement * speed);
-        if (Input.GetKey("escape"))
-        Application.Quit();
+        
     }
    
         
@@ -50,7 +49,6 @@ public class PlayerController : MonoBehaviour
         else if (other.gameObject.CompareTag("Enemy"))
         {
             other.gameObject.SetActive(false);
-            count = count - 1;
             playerLive = playerLive - 1;
             SetCountText();
         }
